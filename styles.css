@@ -108,12 +108,13 @@ main {
 .menu-toggle[aria-expanded="true"] .burger i:nth-child(1) { transform: translate(9.5px, 4px) rotate(45deg) scaleX(0.7); }
 .menu-toggle[aria-expanded="true"] .burger i:nth-child(2) { transform: translate(9.5px, -4px) rotate(-45deg) scaleX(0.7); }
 
-/* Панель меню: белая карточка от края до края, выезжает из-под верха экрана */
+/* Панель меню: белая карточка шириной с шапку, выезжает из-под неё */
 .menu-panel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  /* занимает ровно ту же ширину, что и шапка: отступы гасят её внутренние поля */
+  position: absolute;
+  top: -20px;
+  left: calc(-1 * var(--gutter));
+  right: calc(-1 * var(--gutter));
   display: flex;
   flex-direction: column;
   align-items: flex-start;
