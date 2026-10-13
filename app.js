@@ -34,7 +34,7 @@ function head(logo) {
             <div class="menu-links">
               <a class="menu-item" href="https://t.me/rudsdesign" target="_blank" rel="noopener">
                 <span>Предложить сотрудничество</span>
-                <img class="arrow" src="icons/arrow.svg" alt="">
+                <img class="arrow" src="arrow.svg" alt="">
               </a>
             </div>
           </nav>
@@ -65,7 +65,7 @@ function card(b, i) {
       </div>
       <div class="card-row">
         <span>${signature(b)}</span>
-        <img class="arrow" src="icons/arrow.svg" alt="">
+        <img class="arrow" src="arrow.svg" alt="">
       </div>
     </a>`;
 }
@@ -104,7 +104,7 @@ function renderBoost(b) {
         ${b.links.map(([label, url]) => `
           <a href="${url}" target="_blank" rel="noopener">
             <span>${label}</span>
-            <img class="arrow" src="icons/arrow.svg" alt="">
+            <img class="arrow" src="arrow.svg" alt="">
           </a>`).join("")}
       </nav>`
     : "";
@@ -112,7 +112,7 @@ function renderBoost(b) {
   app.innerHTML = `
     ${head(`<a class="logo" href="#/">DESIGN BOOST</a>`)}
     <div class="page">
-      <a class="back" href="#/"><img class="arrow" src="icons/arrow.svg" alt="">Назад</a>
+      <a class="back" href="#/"><img class="arrow" src="arrow.svg" alt="">Назад</a>
       <div class="card hero" style="--c:${b.color}">
         <div class="card-row">
           <span>${b.deadline}</span>
