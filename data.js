@@ -4,7 +4,7 @@
 // type     — тип задания, подпись в углу карточки
 // desc     — короткое описание на карточке
 // facts    — пары «подпись — значение» в боковой колонке
-// images   — картинки из поста с заданием, файлы вида img-<задание>-01.jpg рядом с index.html
+// images   — картинки из поста с заданием, пути к файлам в папке images/
 // links    — материалы к заданию: пары «подпись — ссылка»
 // brief    — текст задания в HTML (h3, p, ul)
 // works    — пути к картинкам работ участников
@@ -22,7 +22,7 @@ const BOOSTS = [
       ["Формат", "Скрины, без ссылок"],
       ["Ограничения", "Должно быть понятно, что это копилка Т-Банка"],
     ],
-    images: ["img-kopilka-01.jpg"],
+    images: ["images/kopilka/01.jpg"],
     links: [
       ["Пост с заданием в Telegram", "https://t.me/ruds_design/317"],
     ],
@@ -47,7 +47,7 @@ const BOOSTS = [
       ["Объект", "Экран музыкального плеера"],
       ["Победители", "Трое, по общему голосованию"],
     ],
-    images: ["img-player-01.jpg", "img-player-02.jpg", "img-player-03.jpg", "img-player-04.jpg"],
+    images: ["images/player/01.jpg", "images/player/02.jpg", "images/player/03.jpg", "images/player/04.jpg"],
     links: [
       ["Колесо фортуны", "https://wheelofnames.com/hum-cck"],
       ["Исходный макет и работы дизайнеров", "https://www.figma.com/design/d9pjlsk5i1CrZngUIi07cB/Untitled?node-id=0-1"],
@@ -76,7 +76,7 @@ const BOOSTS = [
       ["Формат", "Презентация на 5–7 слайдов"],
       ["Приз", "Ассорти чая за первое место"],
     ],
-    images: ["img-greenfield-01.jpg"],
+    images: ["images/greenfield/01.jpg"],
     links: [
       ["Фигма с заданием и референсами", "https://www.figma.com/design/t4bjcCXL4eBOH2cpJxbHsJ/Design-boost-x-%D0%9D%D0%B8%D0%BA%D0%B8%D1%82%D0%B0-PNG?node-id=0-1"],
       ["Пост с заданием в Telegram", "https://t.me/ruds_design/370"],
@@ -177,7 +177,7 @@ const BOOSTS = [
       ["Дедлайн", "20 июля, 13:00"],
       ["Объект", "Десктопный виджет"],
     ],
-    images: ["img-factoring-limit-01.jpg"],
+    images: ["images/factoring-limit/01.jpg"],
     links: [
       ["Пост с заданием на канале «Мюсли Дизайнера»", "https://t.me/uxmuesli/305"],
     ],
