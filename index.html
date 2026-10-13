@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design Boost — разминки для дизайнеров</title>
+  <meta name="description" content="Design Boost — регулярные короткие дизайн-задачи. Архив заданий и работ участников.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app"></main>
+
+  <footer class="foot" id="contacts">
+    <div class="foot-card">
+      <p class="foot-text">Новые разминки выходят в наших Telegram-каналах. Там же голосования и разборы работ.</p>
+      <nav class="foot-links" aria-label="Ссылки">
+        <a href="https://t.me/ruds_design" target="_blank" rel="noopener">
+          <span>Ruds design</span>
+          <img class="arrow" src="icons/arrow.svg" alt="">
+        </a>
+        <a href="https://t.me/uxmuesli" target="_blank" rel="noopener">
+          <span>Мюсли Дизайнера</span>
+          <img class="arrow" src="icons/arrow.svg" alt="">
+        </a>
+      </nav>
+      <p class="foot-note">Design Boost, 2026</p>
+    </div>
+  </footer>
+
+  <dialog class="viewer" id="viewer" aria-label="Просмотр работы">
+    <button class="viewer-close" type="button" data-act="close" aria-label="Закрыть">закрыть</button>
+    <button class="viewer-nav prev" type="button" data-act="prev" aria-label="Предыдущая работа">←</button>
+    <img id="viewer-img" alt="">
+    <button class="viewer-nav next" type="button" data-act="next" aria-label="Следующая работа">→</button>
+    <span class="viewer-count" id="viewer-count"></span>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
