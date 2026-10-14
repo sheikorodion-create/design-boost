@@ -336,8 +336,8 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .work img { display: block; width: 100%; height: auto; }
 
 /* Подвал: белая карточка */
-/* Карточка подвала идёт от края до края экрана, без боковых полей */
-.foot { margin: 0; padding: 0; }
+/* Подвал той же ширины, что шапка и меню: на телефоне от края до края, на широком экране 1180px по центру */
+.foot { max-width: 1180px; margin: 0 auto; padding: 0; }
 .foot-card {
   display: flex;
   flex-direction: column;
