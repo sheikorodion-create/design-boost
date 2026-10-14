@@ -407,7 +407,9 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .p-hero { display: grid; justify-items: start; gap: 12px; }
 .p-label { margin: 0; font: var(--t-caption); color: var(--mute); }
 .p-hero-title { margin: 0; font: var(--t-title); letter-spacing: -0.01em; text-transform: uppercase; }
-.p-lead { margin: 0 0 8px; max-width: 560px; }
+.p-lead { margin: 0; max-width: 560px; }
+/* Цифры стоят вплотную к хиро, тем же шагом 12px, что и карточки между собой */
+.p-hero + .p-section { margin-top: -28px; }
 
 /* Кнопка: чёрная пилюля со стрелкой */
 .btn {
