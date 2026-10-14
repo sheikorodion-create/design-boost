@@ -290,36 +290,34 @@ function renderPartners() {
   typograph(app);
 }
 
-// Переходы между списком и страницей задания
-let currentId = null;
-let listScroll = 0;
+// Навигация между страницами.
+// «Назад» возвращает туда, откуда пришли (список, «Сотрудничество» или другое задание),
+// и на то же место прокрутки.
 let firstRender = true;
-
 let shownPath = null;
+const scrollPositions = {};
+// Пути, с которых уходили вперёд — для просмотрщиков, где история браузера недоступна
+const trail = [];
+let historyWorks = true;
 
-function route(path = location.hash) {
+const normalize = (path) => (path && path !== "#" ? path : "#/");
+
+function route(path = location.hash, back = false) {
+  path = normalize(path);
   if (path === shownPath) return;
+  if (shownPath) scrollPositions[shownPath] = window.scrollY;
   shownPath = path;
+
   const m = path.match(/^#\/boost\/([\w-]+)/);
   const boost = (m && BOOSTS.find((b) => b.id === m[1])) || null;
   const isPartners = path === "#/partners";
   document.documentElement.classList.remove("menu-open");
-  const prevId = currentId;
-  currentId = boost ? boost.id : isPartners ? "partners" : null;
-  if (!prevId && currentId) listScroll = window.scrollY;
 
   const render = () => {
-    if (boost) {
-      renderBoost(boost);
-      window.scrollTo(0, 0);
-    } else if (isPartners) {
-      renderPartners();
-      window.scrollTo(0, 0);
-    } else {
-      renderList(firstRender);
-      // Возвращаемся в то место списка, откуда ушли
-      window.scrollTo(0, prevId ? listScroll : 0);
-    }
+    if (boost) renderBoost(boost);
+    else if (isPartners) renderPartners();
+    else renderList(firstRender);
+    window.scrollTo(0, back ? scrollPositions[path] || 0 : 0);
   };
 
   if (firstRender || !document.startViewTransition) {
@@ -328,8 +326,8 @@ function route(path = location.hash) {
     return;
   }
 
-  // Направление сдвига: вперёд в задание или назад к списку
-  document.documentElement.dataset.nav = currentId ? "forward" : "back";
+  // Направление сдвига страницы: вперёд или назад
+  document.documentElement.dataset.nav = back ? "back" : "forward";
   // Если переход недоступен или прерван, страница всё равно отрисовывается
   try {
     const transition = document.startViewTransition(render);
@@ -343,19 +341,30 @@ function route(path = location.hash) {
 // Внутренние ссылки открываем сами, не дожидаясь перехода по адресу: встроенные
 // просмотрщики файлов на телефонах такие переходы могут блокировать
 function navigate(path) {
+  trail.push(shownPath);
   try {
-    history.pushState(null, "", path);
+    const depth = ((history.state && history.state.depth) || 0) + 1;
+    history.pushState({ depth }, "", path);
   } catch {
-    try { location.hash = path; } catch {}
+    historyWorks = false;
   }
   route(path);
+}
+
+function goBack() {
+  const depth = (history.state && history.state.depth) || 0;
+  if (historyWorks && depth > 0) history.back();
+  else if (!historyWorks && trail.length) route(trail.pop(), true);
+  // На сайт зашли сразу на эту страницу — возвращаться некуда, ведём на главную
+  else navigate("#/");
 }
 
 document.addEventListener("click", (e) => {
   const link = e.target.closest('a[href^="#/"]');
   if (!link || e.metaKey || e.ctrlKey || e.shiftKey) return;
   e.preventDefault();
-  navigate(link.getAttribute("href"));
+  if (link.classList.contains("back")) goBack();
+  else navigate(link.getAttribute("href"));
 });
 
 // Просмотр работ
@@ -406,6 +415,16 @@ app.addEventListener("click", (e) => {
 });
 
 typograph(document.querySelector(".foot"));
+try {
+  history.replaceState({ depth: 0 }, "");
+} catch {
+  historyWorks = false;
+}
+// Кнопки «назад» и «вперёд» браузера
+window.addEventListener("popstate", () => {
+  trail.pop();
+  route(location.hash, true);
+});
+// Адрес поменяли вручную
 window.addEventListener("hashchange", () => route());
-window.addEventListener("popstate", () => route());
 route();
