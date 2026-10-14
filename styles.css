@@ -492,8 +492,8 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
   .sheet { grid-template-columns: minmax(0, 1fr) 280px; gap: 64px; }
   .hero { padding: 28px; }
   .hero .card-title { font-size: 44px; max-width: 18ch; }
-  /* На широком экране картинка не растягивается на всю высоту */
-  .shots:not(.is-grid) .shot img { max-height: 520px; object-fit: cover; }
+  /* Картинка не растягивается больше своего размера (800px), иначе на большом экране мылится */
+  .shots:not(.is-grid) { max-width: 800px; }
   .shots.is-grid { grid-template-columns: repeat(4, 1fr); }
   .viewer { padding: 56px 72px; }
   .viewer img { max-height: calc(100vh - 112px); }
