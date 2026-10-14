@@ -223,7 +223,7 @@ const BOOSTS = [
       ["Итоги", "Голосование в день дедлайна"],
       ["Участникам", "Скидка 30% на доступ в look and feel"],
     ],
-    images: [],
+    images: ["images/graphic-ui/01.jpg"],
     links: [
       ["Фигма с экранами", "https://www.figma.com/design/klsrqAikCz99Ns7Kfs50u8/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%C2%AB%D0%93%D1%80%D0%B0%D1%84%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D0%BC%D1%8B%C2%BB?node-id=0-1"],
       ["Видео и пост с заданием в Telegram", "https://t.me/ruds_design/308"],
@@ -249,7 +249,7 @@ const BOOSTS = [
       ["Дедлайн", "1 апреля, 13:00"],
       ["Что показать", "Два состояния экрана сериала"],
     ],
-    images: [],
+    images: ["images/netflix/01.jpg"],
     links: [
       ["Пост с заданием в Telegram", "https://t.me/ruds_design/276"],
     ],
@@ -286,7 +286,7 @@ const BOOSTS = [
       ["Дедлайн", "3 марта, 19:00"],
       ["Сценарий", "New payment"],
     ],
-    images: [],
+    images: ["images/revolut/01.jpg"],
     links: [
       ["Пост с заданием в Telegram", "https://t.me/ruds_design/248"],
       ["Полный флоу Revolut в Screen Gallery", "https://scrn.gallery/apps"],
