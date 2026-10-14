@@ -11,7 +11,8 @@ function typograph(root) {
     node.nodeValue = node.nodeValue
       .replace(SHORT_WORDS, "$1\u00A0")
       .replace(/\s+—/g, "\u00A0—")
-      .replace(/(\d)\s+(?=[а-яё])/giu, "$1\u00A0");
+      .replace(/(\d)\s+(?=[а-яё])/giu, "$1\u00A0")
+      .replace(/(\d) (?=\d{3}(?!\d))/g, "$1\u00A0");
   }
 }
 

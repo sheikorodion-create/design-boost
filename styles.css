@@ -438,7 +438,7 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 /* 4. Как это работает */
 .p-steps { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .p-step { display: grid; align-content: start; gap: 8px; }
-.p-step-num { font: var(--t-title); color: var(--mute); margin-bottom: 8px; }
+.p-step-num { font: var(--t-title); margin-bottom: 8px; }
 .p-step p { margin: 0; }
 
 /* 5. Что вы получаете */
