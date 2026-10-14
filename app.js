@@ -253,16 +253,6 @@ function renderPartners() {
         <h2 class="p-title">С кем мы уже делали разминки</h2>
         <div class="p-partners">
           ${partners.map(partnerCard).join("")}
-          <a class="card partner p-cta" href="${TELEGRAM}" target="_blank" rel="noopener">
-            <div class="card-text">
-              <h3 class="card-title">Здесь может быть ваша разминка</h3>
-              <p class="card-desc">Напишите нам, и мы вместе придумаем задание</p>
-            </div>
-            <div class="card-row">
-              <span>Написать в Telegram</span>
-              <img class="arrow" src="icons/arrow.svg" alt="">
-            </div>
-          </a>
         </div>
       </section>
 
