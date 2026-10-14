@@ -343,7 +343,7 @@ const BOOSTS = [
 const partnerStats = [
   { value: "9", label: "разминок" },
   { value: "5", label: "коллабораций с партнёрами" },
-  { value: "85+", label: "работ участников" },
+  { value: "85", label: "работ участников" },
   { value: "4,4K", label: "просмотров на пост с заданием" },
 ];
 
