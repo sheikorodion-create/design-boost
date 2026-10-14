@@ -201,8 +201,8 @@ function renderPartners() {
     "Возможность заметить сильных дизайнеров для своей команды",
   ];
   const authors = [
-    ["Родион Шейко", "РШ", "канал", "Ruds design", "https://t.me/ruds_design"],
-    ["Иван Коптелин", "ИК", "канал", "Мюсли Дизайнера", "https://t.me/uxmuesli"],
+    ["Родион Шейко", "images/team/rodion.jpg", "канал", "Ruds design", "https://t.me/ruds_design"],
+    ["Иван Коптелин", "images/team/ivan.jpg", "канал", "Мюсли Дизайнера", "https://t.me/uxmuesli"],
   ];
 
   app.innerHTML = `
@@ -261,9 +261,9 @@ function renderPartners() {
         <h2 class="p-title">Кто мы</h2>
         <div class="block p-team">
           <p>Проект ведут два продуктовых дизайнера из Т-Банка.</p>
-          <ul class="p-authors">${authors.map(([name, initials, note, channel, url], i) => `
+          <ul class="p-authors">${authors.map(([name, photo, note, channel, url]) => `
             <li>
-              <span class="p-avatar" style="--c:${PALETTE[i === 0 ? 0 : 3]}">${initials}</span>
+              <img class="p-avatar" src="${photo}" alt="${name}" width="48" height="48" loading="lazy">
               <span>
                 <span class="p-sub">${name}</span>
                 <span class="p-author-note">${note} <a href="${url}" target="_blank" rel="noopener">${channel}</a></span>

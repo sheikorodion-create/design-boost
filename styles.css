@@ -456,11 +456,7 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .p-team p { margin: 0; }
 .p-authors { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .p-authors li { display: flex; align-items: center; gap: 12px; }
-.p-avatar {
-  display: grid; place-items: center; flex: none;
-  width: 48px; height: 48px; border-radius: 50%;
-  background: var(--c); font: var(--t-sub);
-}
+.p-avatar { flex: none; width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: var(--bg); }
 .p-author-note { font: var(--t-caption); color: var(--mute); }
 .p-author-note a { text-decoration: underline; text-underline-offset: 2px; }
 
