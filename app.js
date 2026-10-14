@@ -200,7 +200,7 @@ function renderPartners() {
     "Возможность заметить сильных дизайнеров для своей команды",
   ];
   const authors = [
-    ["Родион Шейко", "РШ", "ex-Ozon, канал", "Ruds design", "https://t.me/ruds_design"],
+    ["Родион Шейко", "РШ", "канал", "Ruds design", "https://t.me/ruds_design"],
     ["Иван Коптелин", "ИК", "канал", "Мюсли Дизайнера", "https://t.me/uxmuesli"],
   ];
 
@@ -266,9 +266,9 @@ function renderPartners() {
         </div>
       </section>
 
-      <section class="block p-about">
-        <div class="p-about-col">
-          <h2 class="p-title">Кто мы</h2>
+      <section class="p-section">
+        <h2 class="p-title">Кто мы</h2>
+        <div class="block p-team">
           <p>Проект ведут два продуктовых дизайнера из Т-Банка.</p>
           <ul class="p-authors">${authors.map(([name, initials, note, channel, url], i) => `
             <li>
@@ -280,11 +280,12 @@ function renderPartners() {
             </li>`).join("")}
           </ul>
         </div>
-        <div class="p-about-col">
-          <h2 class="p-title">Хотите сделать разминку с нами?</h2>
-          <p>Расскажите о компании и идее, и мы предложим, как это сделать.</p>
-          ${telegramButton()}
-        </div>
+      </section>
+
+      <section class="block p-final">
+        <h2 class="p-title">Хотите сделать разминку с нами?</h2>
+        <p>Расскажите о компании и идее, и мы предложим, как это сделать.</p>
+        ${telegramButton()}
       </section>
     </div>`;
   typograph(app);

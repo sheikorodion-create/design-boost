@@ -454,11 +454,10 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .p-cta, .p-cta .card-title, .p-cta .card-desc { color: var(--paper); }
 .p-cta .arrow { filter: invert(1); }
 
-/* 7. Кто мы + финальный призыв */
-.p-about { display: grid; gap: 32px; }
-.p-about-col { display: grid; justify-items: start; align-content: start; gap: 12px; }
-.p-about-col p { margin: 0; }
-.p-authors { display: grid; gap: 12px; margin: 4px 0 0; padding: 0; list-style: none; }
+/* 7. Кто мы: заголовок над белым блоком, как у остальных разделов */
+.p-team { display: grid; gap: 16px; }
+.p-team p { margin: 0; }
+.p-authors { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .p-authors li { display: flex; align-items: center; gap: 12px; }
 .p-avatar {
   display: grid; place-items: center; flex: none;
@@ -468,6 +467,12 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .p-author-note { font: var(--t-caption); color: var(--mute); }
 .p-author-note a { text-decoration: underline; text-underline-offset: 2px; }
 
+/* 8. Финальный призыв: тёмный блок, чтобы страница заканчивалась акцентом */
+.p-final { display: grid; justify-items: start; gap: 12px; background: var(--ink); color: var(--paper); }
+.p-final p { margin: 0 0 8px; max-width: 560px; }
+.p-final .btn { background: var(--paper); color: var(--ink); }
+.p-final .btn .arrow { filter: none; }
+
 @media (hover: hover) and (pointer: fine) {
   .btn:hover .arrow { translate: 4px 0; }
 }
@@ -475,6 +480,7 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 /* Планшет: сетки по 2 колонки */
 @media (min-width: 640px) {
   .p-steps, .p-partners { grid-template-columns: repeat(2, 1fr); }
+  .p-authors { grid-template-columns: repeat(2, max-content); column-gap: 40px; }
 }
 /* Десктоп: 3–4 колонки, заголовок хиро крупнее */
 @media (min-width: 1024px) {
@@ -482,7 +488,7 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
   .p-hero-title { font-size: 44px; }
   .p-stats, .p-steps { grid-template-columns: repeat(4, 1fr); }
   .p-partners { grid-template-columns: repeat(3, 1fr); }
-  .p-about { grid-template-columns: 1fr 1fr; padding: 32px; }
+  .p-final { padding: 32px; }
 }
 
 /* Широкие экраны — в макете их нет, раскладка достроена по мобильной */
