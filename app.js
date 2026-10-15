@@ -11,7 +11,8 @@ function typograph(root) {
     node.nodeValue = node.nodeValue
       .replace(SHORT_WORDS, "$1\u00A0")
       .replace(/\s+—/g, "\u00A0—")
-      .replace(/(\d)\s+(?=[а-яё])/giu, "$1\u00A0");
+      .replace(/(\d)\s+(?=[а-яё])/giu, "$1\u00A0")
+      .replace(/(\d) (?=\d{3}(?!\d))/g, "$1\u00A0");
   }
 }
 
@@ -20,7 +21,7 @@ function signature(b) {
 }
 
 // Шапка: логотип и раскрывающееся меню
-function head(logo) {
+function head(logo, current = "") {
   return `
     <header class="head">
       <div class="head-row">
@@ -32,8 +33,8 @@ function head(logo) {
           <nav class="menu-panel" id="menu-panel" aria-label="Меню">
             <p class="menu-desc">Разминки для дизайнеров.<br>Продуктовый дизайн, интерфейсы, графика и визуальные эксперименты. Здесь лежат все прошедшие задания и работы участников.</p>
             <div class="menu-links">
-              <a class="menu-item" href="https://t.me/rudsdesign" target="_blank" rel="noopener">
-                <span>Предложить сотрудничество</span>
+              <a class="menu-item" href="#/partners"${current === "partners" ? ' aria-current="page"' : ""}>
+                <span>Сотрудничество</span>
                 <img class="arrow" src="icons/arrow.svg" alt="">
               </a>
             </div>
@@ -70,8 +71,12 @@ function card(b, i) {
     </a>`;
 }
 
+const META = document.querySelector('meta[name="description"]');
+const DEFAULT_DESCRIPTION = META.content;
+
 function renderList(intro) {
   document.title = "Design Boost — разминки для дизайнеров";
+  META.content = DEFAULT_DESCRIPTION;
   app.innerHTML = `
     ${head(`<h1 class="logo">DESIGN BOOST</h1>`)}
     <section class="list${intro ? " is-intro" : ""}">${BOOSTS.map(card).join("")}</section>`;
@@ -80,6 +85,7 @@ function renderList(intro) {
 
 function renderBoost(b) {
   document.title = `${b.title} — Design Boost`;
+  META.content = DEFAULT_DESCRIPTION;
   const works = SHOW_WORKS && b.works.length
     ? `<section class="gallery">
         <h2>Работы участников</h2>
@@ -141,32 +147,167 @@ function renderBoost(b) {
   viewer.list = b.images || [];
 }
 
-// Переходы между списком и страницей задания
-let currentId = null;
-let listScroll = 0;
+// Страница «Сотрудничество»
+const TELEGRAM = "https://t.me/rudsdesign";
+
+function telegramButton() {
+  return `
+    <a class="btn" href="${TELEGRAM}" target="_blank" rel="noopener">
+      <span>Написать в Telegram</span>
+      <img class="arrow" src="icons/arrow.svg" alt="">
+    </a>`;
+}
+
+function partnerCard(p) {
+  return `
+    <a class="card partner" href="#/boost/${p.boostSlug}" style="--c:${p.color}">
+      <div class="card-row">
+        <span>${p.name}</span>
+        <span>${p.date}</span>
+      </div>
+      <div class="card-text">
+        <h3 class="card-title">${p.title}</h3>
+        <ul class="partner-stats">${p.stats.map((line) => `<li>${line}</li>`).join("")}</ul>
+      </div>
+      <div class="card-row">
+        <span>Смотреть задание</span>
+        <img class="arrow" src="icons/arrow.svg" alt="">
+      </div>
+    </a>`;
+}
+
+function renderPartners() {
+  document.title = "Сотрудничество — Design Boost";
+  META.content = "Сделайте дизайн-разминку вместе с Design Boost: задание на вашем продукте, разбор работ и призы участникам.";
+
+  const who = [
+    "Продуктовые компании и дизайн-команды",
+    "Сервисы и инструменты для дизайнеров",
+    "Онлайн-школы и курсы",
+    "Дизайнеры, иллюстраторы и авторы своих проектов",
+    "Дизайн-сообщества и конференции",
+  ];
+  const steps = [
+    ["Придумываем задание вместе", "На основе вашего продукта, реального кейса или задачи, которая вам интересна."],
+    ["Запускаем в каналах", "Разминку видят подписчики Ruds design и Мюсли Дизайнера (около 2 800 человек), а потом она навсегда остаётся в архиве на сайте."],
+    ["Разбираем работы", "Выбираем лучшие решения и даём участникам обратную связь, в том числе на живом созвоне."],
+    ["Награждаем победителей", "Призы от вас: подписка на сервис, курс, мерч или что-то своё."],
+  ];
+  const benefits = [
+    "Внимание активной аудитории продуктовых дизайнеров, которые не просто читают, а делают задания",
+    "Узнаваемость бренда в дизайн-сообществе",
+    "Свежие идеи и взгляд со стороны на ваш продукт или кейс",
+    "Возможность заметить сильных дизайнеров для своей команды",
+  ];
+  const authors = [
+    ["Родион Шейко", "images/team/rodion.jpg", "канал", "Ruds design", "https://t.me/ruds_design"],
+    ["Иван Коптелин", "images/team/ivan.jpg", "канал", "Мюсли Дизайнера", "https://t.me/uxmuesli"],
+  ];
+
+  app.innerHTML = `
+    ${head(`<a class="logo" href="#/">DESIGN BOOST</a>`, "partners")}
+    <div class="page partners-page">
+      <a class="back" href="#/"><img class="arrow" src="icons/arrow.svg" alt="">Назад</a>
+
+      <section class="block p-hero">
+        <p class="p-label">Сотрудничество</p>
+        <h1 class="p-hero-title">Сделаем разминку вместе</h1>
+        <p class="p-lead">Design Boost — регулярные дизайн-разминки для продуктовых дизайнеров. Мы придумываем практические задания на реальных продуктах, участники решают их, а потом мы вместе разбираем работы и выбираем победителей.</p>
+      </section>
+
+      <section class="p-section">
+        <h2 class="visually-hidden">Design Boost в цифрах</h2>
+        <div class="p-stats">${partnerStats.map((s) => `
+          <div class="block p-stat">
+            <span class="p-stat-value">${s.value}</span>
+            <span class="p-stat-label">${s.label}</span>
+          </div>`).join("")}
+        </div>
+      </section>
+
+      <section class="p-section">
+        <h2 class="p-title">Кто может стать партнёром</h2>
+        <ul class="p-chips">${who.map((w) => `<li>${w}</li>`).join("")}</ul>
+      </section>
+
+      <section class="p-section">
+        <h2 class="p-title">Как это работает</h2>
+        <ol class="p-steps">${steps.map(([name, text], i) => `
+          <li class="block p-step">
+            <span class="p-step-num">${String(i + 1).padStart(2, "0")}</span>
+            <h3 class="p-sub">${name}</h3>
+            <p>${text}</p>
+          </li>`).join("")}
+        </ol>
+      </section>
+
+      <section class="p-section">
+        <h2 class="p-title">Что вы получаете</h2>
+        <ul class="block p-benefits">${benefits.map((b) => `
+          <li><i></i>${b}</li>`).join("")}
+        </ul>
+      </section>
+
+      <section class="p-section">
+        <h2 class="p-title">С кем мы уже делали разминки</h2>
+        <div class="p-partners">
+          ${partners.map(partnerCard).join("")}
+        </div>
+      </section>
+
+      <section class="p-section">
+        <h2 class="p-title">Кто мы</h2>
+        <div class="block p-team">
+          <p>Проект ведут два продуктовых дизайнера из Т-Банка.</p>
+          <ul class="p-authors">${authors.map(([name, photo, note, channel, url]) => `
+            <li>
+              <img class="p-avatar" src="${photo}" alt="${name}" width="48" height="48" loading="lazy">
+              <span>
+                <span class="p-sub">${name}</span>
+                <span class="p-author-note">${note} <a href="${url}" target="_blank" rel="noopener">${channel}</a></span>
+              </span>
+            </li>`).join("")}
+          </ul>
+        </div>
+      </section>
+
+      <section class="block p-final">
+        <h2 class="p-title">Хотите сделать разминку с нами?</h2>
+        <p>Расскажите о компании и идее, и мы предложим, как это сделать.</p>
+        ${telegramButton()}
+      </section>
+    </div>`;
+  typograph(app);
+}
+
+// Навигация между страницами.
+// «Назад» возвращает туда, откуда пришли (список, «Сотрудничество» или другое задание),
+// и на то же место прокрутки.
 let firstRender = true;
-
 let shownPath = null;
+const scrollPositions = {};
+// Пути, с которых уходили вперёд — для просмотрщиков, где история браузера недоступна
+const trail = [];
+let historyWorks = true;
 
-function route(path = location.hash) {
+const normalize = (path) => (path && path !== "#" ? path : "#/");
+
+function route(path = location.hash, back = false) {
+  path = normalize(path);
   if (path === shownPath) return;
+  if (shownPath) scrollPositions[shownPath] = window.scrollY;
   shownPath = path;
+
   const m = path.match(/^#\/boost\/([\w-]+)/);
   const boost = (m && BOOSTS.find((b) => b.id === m[1])) || null;
+  const isPartners = path === "#/partners";
   document.documentElement.classList.remove("menu-open");
-  const prevId = currentId;
-  currentId = boost ? boost.id : null;
-  if (!prevId && boost) listScroll = window.scrollY;
 
   const render = () => {
-    if (boost) {
-      renderBoost(boost);
-      window.scrollTo(0, 0);
-    } else {
-      renderList(firstRender);
-      // Возвращаемся в то место списка, откуда ушли
-      window.scrollTo(0, prevId ? listScroll : 0);
-    }
+    if (boost) renderBoost(boost);
+    else if (isPartners) renderPartners();
+    else renderList(firstRender);
+    window.scrollTo(0, back ? scrollPositions[path] || 0 : 0);
   };
 
   if (firstRender || !document.startViewTransition) {
@@ -175,8 +316,8 @@ function route(path = location.hash) {
     return;
   }
 
-  // Направление сдвига: вперёд в задание или назад к списку
-  document.documentElement.dataset.nav = boost ? "forward" : "back";
+  // Направление сдвига страницы: вперёд или назад
+  document.documentElement.dataset.nav = back ? "back" : "forward";
   // Если переход недоступен или прерван, страница всё равно отрисовывается
   try {
     const transition = document.startViewTransition(render);
@@ -190,19 +331,30 @@ function route(path = location.hash) {
 // Внутренние ссылки открываем сами, не дожидаясь перехода по адресу: встроенные
 // просмотрщики файлов на телефонах такие переходы могут блокировать
 function navigate(path) {
+  trail.push(shownPath);
   try {
-    history.pushState(null, "", path);
+    const depth = ((history.state && history.state.depth) || 0) + 1;
+    history.pushState({ depth }, "", path);
   } catch {
-    try { location.hash = path; } catch {}
+    historyWorks = false;
   }
   route(path);
+}
+
+function goBack() {
+  const depth = (history.state && history.state.depth) || 0;
+  if (historyWorks && depth > 0) history.back();
+  else if (!historyWorks && trail.length) route(trail.pop(), true);
+  // На сайт зашли сразу на эту страницу — возвращаться некуда, ведём на главную
+  else navigate("#/");
 }
 
 document.addEventListener("click", (e) => {
   const link = e.target.closest('a[href^="#/"]');
   if (!link || e.metaKey || e.ctrlKey || e.shiftKey) return;
   e.preventDefault();
-  navigate(link.getAttribute("href"));
+  if (link.classList.contains("back")) goBack();
+  else navigate(link.getAttribute("href"));
 });
 
 // Просмотр работ
@@ -253,6 +405,16 @@ app.addEventListener("click", (e) => {
 });
 
 typograph(document.querySelector(".foot"));
+try {
+  history.replaceState({ depth: 0 }, "");
+} catch {
+  historyWorks = false;
+}
+// Кнопки «назад» и «вперёд» браузера
+window.addEventListener("popstate", () => {
+  trail.pop();
+  route(location.hash, true);
+});
+// Адрес поменяли вручную
 window.addEventListener("hashchange", () => route());
-window.addEventListener("popstate", () => route());
 route();

@@ -1,5 +1,5 @@
 :root {
-  --bg: #f4f4f4;
+  --bg: #f8f8f8;
   --ink: #111214;
   --mute: #6b727e;
   --line: rgba(17, 18, 20, 0.12);
@@ -108,12 +108,13 @@ main {
 .menu-toggle[aria-expanded="true"] .burger i:nth-child(1) { transform: translate(9.5px, 4px) rotate(45deg) scaleX(0.7); }
 .menu-toggle[aria-expanded="true"] .burger i:nth-child(2) { transform: translate(9.5px, -4px) rotate(-45deg) scaleX(0.7); }
 
-/* Панель меню: белая карточка от края до края, выезжает из-под верха экрана */
+/* Панель меню: белая карточка шириной с шапку, выезжает из-под неё */
 .menu-panel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  /* занимает ровно ту же ширину, что и шапка: отступы гасят её внутренние поля */
+  position: absolute;
+  top: -20px;
+  left: calc(-1 * var(--gutter));
+  right: calc(-1 * var(--gutter));
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -335,8 +336,8 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .work img { display: block; width: 100%; height: auto; }
 
 /* Подвал: белая карточка */
-/* Карточка подвала идёт от края до края экрана, без боковых полей */
-.foot { margin: 0; padding: 0; }
+/* Подвал той же ширины, что шапка и меню: на телефоне от края до края, на широком экране 1180px по центру */
+.foot { max-width: 1180px; margin: 0 auto; padding: 0; }
 .foot-card {
   display: flex;
   flex-direction: column;
@@ -344,7 +345,7 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
   gap: 20px;
   padding: 20px;
   background: var(--paper);
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   /* подвал прижат к низу, поэтому тень направлена вверх */
   box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.07);
 }
@@ -387,13 +388,112 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .viewer-nav.next { right: 12px; }
 .viewer-count { position: absolute; bottom: 24px; left: 50%; translate: -50% 0; font: var(--t-caption); opacity: 0.7; }
 
+/* ===== Страница «Сотрудничество» ===== */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+.menu-item[aria-current="page"] { color: var(--mute); }
+
+/* белый блок, как шапка и подвал, но без тени */
+.block { background: var(--paper); border-radius: 20px; padding: 20px; }
+.partners-page { display: grid; gap: 40px; }
+.partners-page > .back { margin-bottom: -24px; }
+.p-section { display: grid; gap: 16px; }
+.p-title { margin: 0; font: var(--t-title); letter-spacing: -0.01em; text-transform: uppercase; }
+.p-sub { display: block; margin: 0; font: var(--t-sub); letter-spacing: -0.01em; }
+
+/* 1. Хиро */
+.p-hero { display: grid; justify-items: start; gap: 12px; }
+.p-label { margin: 0; font: var(--t-caption); color: var(--mute); }
+.p-hero-title { margin: 0; font: var(--t-title); letter-spacing: -0.01em; text-transform: uppercase; }
+.p-lead { margin: 0; max-width: 560px; }
+/* Цифры стоят вплотную к хиро, тем же шагом 12px, что и карточки между собой */
+.p-hero + .p-section { margin-top: -28px; }
+
+/* Кнопка: чёрная пилюля со стрелкой */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font: var(--t-text);
+  transition: scale 0.15s var(--ease-out-quad);
+}
+.btn .arrow { filter: invert(1); transition: translate 0.15s var(--ease-out-expo); }
+.btn:active { scale: 0.98; }
+
+/* 2. Цифры */
+.p-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.p-stat { display: grid; align-content: space-between; gap: 12px; min-height: 120px; }
+.p-stat-value { font: var(--t-title); letter-spacing: -0.01em; }
+.p-stat-label { font: var(--t-caption); color: var(--mute); }
+
+/* 3. Кто может стать партнёром */
+/* чипы столбиком, каждый по ширине своего текста */
+.p-chips { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.p-chips li { padding: 10px 16px; border-radius: 999px; background: var(--paper); }
+
+/* 4. Как это работает */
+.p-steps { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.p-step { display: grid; align-content: start; gap: 8px; }
+.p-step-num { font: var(--t-title); margin-bottom: 8px; }
+.p-step p { margin: 0; }
+
+/* 5. Что вы получаете */
+.p-benefits { margin: 0; padding: 0 20px; list-style: none; }
+.p-benefits li { display: flex; align-items: baseline; gap: 12px; padding: 16px 0; }
+.p-benefits li + li { border-top: 1px solid var(--line); }
+.p-benefits i { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--ink); opacity: 0.4; transform: translateY(-1px); }
+
+/* 6. Партнёры: цветные карточки как на главной */
+.p-partners { display: grid; gap: 12px; }
+.partner-stats { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+
+/* 7. Кто мы: заголовок над белым блоком, как у остальных разделов */
+.p-team { display: grid; gap: 16px; }
+.p-team p { margin: 0; }
+.p-authors { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.p-authors li { display: flex; align-items: center; gap: 12px; }
+.p-avatar { flex: none; width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: var(--bg); }
+.p-author-note { font: var(--t-caption); color: var(--mute); }
+.p-author-note a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* 8. Финальный призыв: тёмный блок, чтобы страница заканчивалась акцентом */
+.p-final { display: grid; justify-items: start; gap: 12px; background: var(--ink); color: var(--paper); }
+.p-final p { margin: 0 0 8px; max-width: 560px; }
+.p-final .btn { background: var(--paper); color: var(--ink); }
+.p-final .btn .arrow { filter: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover .arrow { translate: 4px 0; }
+}
+
+/* Планшет: сетки по 2 колонки */
+@media (min-width: 640px) {
+  .p-steps, .p-partners { grid-template-columns: repeat(2, 1fr); }
+  .p-authors { grid-template-columns: repeat(2, max-content); column-gap: 40px; }
+}
+/* Десктоп: 3–4 колонки, заголовок хиро крупнее */
+@media (min-width: 1024px) {
+  .p-hero { padding: 32px; }
+  .p-hero-title { font-size: 44px; }
+  .p-stats, .p-steps { grid-template-columns: repeat(4, 1fr); }
+  .p-partners { grid-template-columns: repeat(3, 1fr); }
+  .p-final { padding: 32px; }
+}
+
 /* Широкие экраны — в макете их нет, раскладка достроена по мобильной */
 @media (min-width: 900px) {
   .sheet { grid-template-columns: minmax(0, 1fr) 280px; gap: 64px; }
   .hero { padding: 28px; }
   .hero .card-title { font-size: 44px; max-width: 18ch; }
-  /* На широком экране картинка не растягивается на всю высоту */
-  .shots:not(.is-grid) .shot img { max-height: 520px; object-fit: cover; }
+  /* Картинка не растягивается больше своего размера (800px), иначе на большом экране мылится */
+  .shots:not(.is-grid) { max-width: 800px; }
   .shots.is-grid { grid-template-columns: repeat(4, 1fr); }
   .viewer { padding: 56px 72px; }
   .viewer img { max-height: calc(100vh - 112px); }
@@ -415,7 +515,8 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 
 /* Уменьшенное движение: перемещения убираем, мягкую смену прозрачности оставляем */
 @media (prefers-reduced-motion: reduce) {
-  a.card, a.card .arrow, .back .arrow, .materials .arrow, .foot-links .arrow { transition: none; }
+  a.card, a.card .arrow, .back .arrow, .materials .arrow, .foot-links .arrow, .btn, .btn .arrow { transition: none; }
+  .btn:active { scale: none; }
   a.card:active { scale: none; }
   .burger i, .menu-item .arrow { transition: none; }
   .menu-panel, .menu-toggle[aria-expanded="true"] + .menu-panel { transform: none; }
