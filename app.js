@@ -216,7 +216,12 @@ function renderPartners() {
 
       <section class="p-section">
         <h2 class="visually-hidden">Design Boost в цифрах</h2>
-        <div class="p-stats">${partnerStats.map((s) => `
+        <div class="p-stats">${partnerStats.map((s) => s.url ? `
+          <a class="block p-stat is-link" href="${s.url}" target="_blank" rel="noopener">
+            <span class="p-stat-value">${s.value}</span>
+            <span class="p-stat-label">${s.label}</span>
+            <img class="arrow" src="icons/arrow.svg" alt="">
+          </a>` : `
           <div class="block p-stat">
             <span class="p-stat-value">${s.value}</span>
             <span class="p-stat-label">${s.label}</span>
