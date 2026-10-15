@@ -313,7 +313,6 @@ const BOOSTS = [
     facts: [
       ["Выпуск", "Design Boost #1"],
       ["Старт", "11 февраля"],
-      ["Принцип", "Один главный призыв к действию"],
     ],
     images: ["images/alfa/01.jpg"],
     links: [
