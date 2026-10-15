@@ -57,8 +57,8 @@ function card(b, i) {
   return `
     <a class="card" href="#/boost/${b.id}" style="--c:${b.color};--i:${i}">
       <div class="card-row">
-        <span>${b.deadline}</span>
         <span>${b.type}</span>
+        <span>${b.deadline}</span>
       </div>
       <div class="card-text">
         <h2 class="card-title">${b.title}</h2>
@@ -121,8 +121,8 @@ function renderBoost(b) {
       <a class="back" href="#/"><img class="arrow" src="icons/arrow.svg" alt="">Назад</a>
       <div class="card hero" style="--c:${b.color}">
         <div class="card-row">
-          <span>${b.deadline}</span>
           <span>${b.type}</span>
+          <span>${b.deadline}</span>
         </div>
         <div class="card-text">
           <h1 class="card-title">${b.title}</h1>
