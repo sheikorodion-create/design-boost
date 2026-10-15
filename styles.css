@@ -506,7 +506,8 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 @media (min-width: 1024px) {
   .p-hero { padding: 32px; }
   .p-hero-title { font-size: 44px; }
-  .p-stats, .p-steps { grid-template-columns: repeat(4, 1fr); }
+  .p-stats { grid-template-columns: repeat(4, 1fr); }
+  .p-steps { grid-template-columns: repeat(3, 1fr); }
   .p-partners { grid-template-columns: repeat(3, 1fr); }
   .p-final { padding: 32px; }
 }
