@@ -320,7 +320,7 @@ const BOOSTS = [
       ["Старт", "11 февраля"],
       ["Принцип", "Один главный призыв к действию"],
     ],
-    images: [],
+    images: ["images/alfa/01.jpg"],
     links: [
       ["Пост с заданием в Telegram", "https://t.me/ruds_design/238"],
     ],
