@@ -97,8 +97,10 @@ function renderBoost(b) {
     : "";
 
   // Картинки из поста с заданием: одна на всю ширину, несколько — сеткой
-  const images = b.images && b.images.length
-    ? `<div class="shots${b.images.length > 1 ? " is-grid" : ""}">${b.images.map((src, i) => `
+  // На телефоне блок стоит под карточкой, на десктопе — под текстом задания;
+  // в разметке он дважды, лишний скрыт стилями (скрытые картинки не грузятся)
+  const images = (place) => b.images && b.images.length
+    ? `<div class="shots shots-${place}${b.images.length > 1 ? " is-grid" : ""}">${b.images.map((src, i) => `
         <button class="shot" type="button" data-i="${i}" aria-label="Открыть изображение ${i + 1}">
           <img src="${src}" alt="Изображение к заданию ${i + 1}" loading="lazy">
         </button>`).join("")}</div>`
@@ -131,9 +133,9 @@ function renderBoost(b) {
           <span>${signature(b)}</span>
         </div>
       </div>
-      ${images}
+      ${images("top")}
       <div class="sheet">
-        <article class="brief">${b.brief}</article>
+        <article class="brief">${b.brief}${images("bottom")}</article>
         <aside class="side">
           <dl class="facts">
             ${b.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}

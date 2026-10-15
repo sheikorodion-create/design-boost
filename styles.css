@@ -270,6 +270,7 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 
 /* Картинки из поста с заданием: стоят сразу под карточкой, в 2px от неё */
 .shots { display: grid; gap: 8px; margin-top: 2px; }
+.shots-bottom { display: none; }
 .shots.is-grid { grid-template-columns: 1fr 1fr; }
 .shot {
   display: block;
@@ -529,8 +530,9 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
   .sheet { grid-template-columns: minmax(0, 1fr) 280px; gap: 64px; }
   .hero { padding: 28px; }
   .hero .card-title { font-size: 44px; max-width: 18ch; }
-  /* Картинки шириной с колонку текста задания */
-  .shots { max-width: 640px; }
+  /* Картинки — под текстом задания, шириной с его колонку */
+  .shots-top { display: none; }
+  .shots-bottom { display: grid; margin-top: 28px; }
   .viewer { padding: 56px 72px; }
   .viewer img { max-height: calc(100vh - 112px); }
   .viewer-nav { bottom: auto; top: 50%; translate: 0 -50%; }
