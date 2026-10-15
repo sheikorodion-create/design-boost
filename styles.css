@@ -222,9 +222,10 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 
 /* Загиб у нижнего края: карточка, въезжая снизу, наклонена назад
    и плавно распрямляется, пока поднимается на треть экрана. Только там,
-   где браузер умеет анимацию по прокрутке, и не при «уменьшить движение» */
+   где браузер умеет анимацию по прокрутке, только на телефонах и планшетах
+   и не при «уменьшить движение» */
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: no-preference) and (max-width: 899px) {
     .list .card {
       transform-origin: 50% 0;
       animation: edge-warp var(--ease-in-out-quad) both;
@@ -269,6 +270,7 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 
 /* Картинки из поста с заданием: стоят сразу под карточкой, в 2px от неё */
 .shots { display: grid; gap: 8px; margin-top: 2px; }
+.shots-bottom { display: none; }
 .shots.is-grid { grid-template-columns: 1fr 1fr; }
 .shot {
   display: block;
@@ -528,9 +530,9 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
   .sheet { grid-template-columns: minmax(0, 1fr) 280px; gap: 64px; }
   .hero { padding: 28px; }
   .hero .card-title { font-size: 44px; max-width: 18ch; }
-  /* Картинка не растягивается больше своего размера (800px), иначе на большом экране мылится */
-  .shots:not(.is-grid) { max-width: 800px; }
-  .shots.is-grid { grid-template-columns: repeat(4, 1fr); }
+  /* Картинки — под текстом задания, шириной с его колонку */
+  .shots-top { display: none; }
+  .shots-bottom { display: grid; margin-top: 28px; }
   .viewer { padding: 56px 72px; }
   .viewer img { max-height: calc(100vh - 112px); }
   .viewer-nav { bottom: auto; top: 50%; translate: 0 -50%; }
