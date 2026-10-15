@@ -149,7 +149,6 @@ function renderBoost(b) {
 
 // Страница «Сотрудничество»
 const TELEGRAM = "https://t.me/rudsdesign";
-const PALETTE = ["#FFDB00", "#FF95D6", "#FF5E00", "#8AA8FF", "#00DAB4", "#C8B0FF"];
 
 function telegramButton() {
   return `
@@ -244,8 +243,8 @@ function renderPartners() {
 
       <section class="p-section">
         <h2 class="p-title">Что вы получаете</h2>
-        <ul class="block p-benefits">${benefits.map((b, i) => `
-          <li><i style="--c:${PALETTE[i % PALETTE.length]}"></i>${b}</li>`).join("")}
+        <ul class="block p-benefits">${benefits.map((b) => `
+          <li><i></i>${b}</li>`).join("")}
         </ul>
       </section>
 

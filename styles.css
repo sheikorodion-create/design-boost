@@ -448,7 +448,7 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .p-benefits { margin: 0; padding: 0 20px; list-style: none; }
 .p-benefits li { display: flex; align-items: baseline; gap: 12px; padding: 16px 0; }
 .p-benefits li + li { border-top: 1px solid var(--line); }
-.p-benefits i { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--c); transform: translateY(-1px); }
+.p-benefits i { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); transform: translateY(-1px); }
 
 /* 6. Партнёры: цветные карточки как на главной */
 .p-partners { display: grid; gap: 12px; }
