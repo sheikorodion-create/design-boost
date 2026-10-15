@@ -456,6 +456,17 @@ a.card .arrow { transition: translate 0.15s var(--ease-out-expo); }
 .p-stat { display: grid; align-content: space-between; gap: 12px; min-height: 120px; }
 .p-stat-value { font: var(--t-title); letter-spacing: -0.01em; }
 .p-stat-label { font: var(--t-caption); color: var(--mute); }
+/* Цифра-ссылка: стрелка «наружу» в правом верхнем углу, отклик как у карточек */
+.p-stat.is-link { position: relative; transition: scale 0.15s var(--ease-out-quad); }
+.p-stat.is-link .arrow {
+  position: absolute; top: 20px; right: 20px;
+  transform: scaleY(-1) rotate(45deg);
+  transition: translate 0.15s var(--ease-out-expo);
+}
+.p-stat.is-link:active { scale: 0.98; }
+@media (hover: hover) and (pointer: fine) {
+  .p-stat.is-link:hover .arrow { translate: 2px -2px; }
+}
 
 /* 3. Кто может стать партнёром */
 /* чипы столбиком, каждый по ширине своего текста */
