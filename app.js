@@ -1,6 +1,4 @@
 const app = document.getElementById("app");
-// Работы участников скрыты до Версии 1; чтобы вернуть галерею, поставьте true
-const SHOW_WORKS = false;
 
 // Типографика: короткие предлоги, союзы и частицы не остаются в конце строки,
 // тире не переносится в начало строки, число не отрывается от следующего слова
@@ -37,6 +35,11 @@ function head(logo, current = "") {
                 <span>Сотрудничество</span>
                 <img class="arrow" src="icons/arrow.svg" alt="">
               </a>
+              ${typeof isAdmin === "function" && isAdmin() ? `
+              <a class="menu-item" href="#/moderation"${current === "moderation" ? ' aria-current="page"' : ""}>
+                <span>Модерация</span>
+                <img class="arrow" src="icons/arrow.svg" alt="">
+              </a>` : ""}
             </div>
           </nav>
         </div>
@@ -86,16 +89,6 @@ function renderList(intro) {
 function renderBoost(b) {
   document.title = `${b.title} — Design Boost`;
   META.content = DEFAULT_DESCRIPTION;
-  const works = SHOW_WORKS && b.works.length
-    ? `<section class="gallery">
-        <h2>Работы участников</h2>
-        <div class="works">${b.works.map((src, i) => `
-          <button class="work" type="button" data-i="${i}" aria-label="Открыть работу ${i + 1}">
-            <img src="${src}" alt="Работа участника ${i + 1}" loading="lazy">
-          </button>`).join("")}</div>
-      </section>`
-    : "";
-
   // Картинки из поста с заданием: одна на всю ширину, несколько — сеткой
   // На телефоне блок стоит под карточкой, на десктопе — под текстом задания;
   // в разметке он дважды, лишний скрыт стилями (скрытые картинки не грузятся)
@@ -143,10 +136,11 @@ function renderBoost(b) {
           ${materials}
         </aside>
       </div>
-      ${works}
+      <section class="p-section community" id="community"></section>
     </div>`;
   typograph(app);
   viewer.list = b.images || [];
+  if (typeof renderCommunity === "function") renderCommunity(b);
 }
 
 // Страница «Сотрудничество»
@@ -307,11 +301,13 @@ function route(path = location.hash, back = false) {
   const m = path.match(/^#\/boost\/([\w-]+)/);
   const boost = (m && BOOSTS.find((b) => b.id === m[1])) || null;
   const isPartners = path === "#/partners";
+  const isModeration = path === "#/moderation";
   document.documentElement.classList.remove("menu-open");
 
   const render = () => {
     if (boost) renderBoost(boost);
     else if (isPartners) renderPartners();
+    else if (isModeration && typeof renderModeration === "function") renderModeration();
     else renderList(firstRender);
     window.scrollTo(0, back ? scrollPositions[path] || 0 : 0);
   };
